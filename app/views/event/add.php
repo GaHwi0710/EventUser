@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Thêm sự kiện - EvenUser</title>
+  <title>Thêm sự kiện - EventUser</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- LIÊN KẾT CSS GỘP -->
   <link rel="stylesheet" href="/assets/css/add.css">

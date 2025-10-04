@@ -13,7 +13,7 @@ class Database
         // Nếu bạn muốn, có thể tách sang file config riêng và require ở đây.
         $config = [
             'host'     => getenv('DB_HOST') ?: 'localhost',
-            'dbname'   => getenv('DB_NAME') ?: 'evenuser',
+            'dbname'   => getenv('DB_NAME') ?: 'eventuser',
             'username' => getenv('DB_USER') ?: 'root',
             'password' => getenv('DB_PASS') ?: '',
             'charset'  => 'utf8mb4',

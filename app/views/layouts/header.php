@@ -19,16 +19,8 @@ if (!function_exists('flash_get')) {
     return null;
   }
 }
-
-// =========================
-// Người dùng hiện tại
-// =========================
 $currentName = $_SESSION['user_name'] ?? 'Account';
 $isLoggedIn  = !empty($_SESSION['user_id']);
-
-// =========================
-// Đường dẫn cơ bản
-// =========================
 require_once __DIR__ . '/../../config/config.php'; // BASE_URL & ASSETS_URL
 
 // Tên file trang hiện tại (ví dụ: home.php -> home)
@@ -43,7 +35,7 @@ $cssFullPath = __DIR__ . "/../../../assets/css/{$page}.css"; // dùng cho kiểm
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EvenUser - <?php echo ucfirst($page); ?></title>
+  <title>EventUser - <?php echo ucfirst($page); ?></title>
 
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -53,7 +45,7 @@ $cssFullPath = __DIR__ . "/../../../assets/css/{$page}.css"; // dùng cho kiểm
     <link rel="stylesheet" href="<?php echo htmlspecialchars($cssFile); ?>">
   <?php else: ?>
     <!-- fallback nếu chưa có file CSS -->
-    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>css/home.css">
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>../css/home.css">
   <?php endif; ?>
 </head>
 <body>
@@ -62,7 +54,7 @@ $cssFullPath = __DIR__ . "/../../../assets/css/{$page}.css"; // dùng cho kiểm
   <div class="container">
     <!-- Logo -->
     <a href="<?php echo BASE_URL; ?>" class="logo">
-      <span class="logo-icon">EU</span> EvenUser
+      <span class="logo-icon">EU</span> EventUser
     </a>
 
     <!-- Ô tìm kiếm -->
