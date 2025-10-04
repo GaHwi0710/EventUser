@@ -1,0 +1,375 @@
+/* --- Cài đặt chung & Font chữ --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --primary-green: #03bf00;
+    --primary-green-hover: #02a100;
+    --dark-bg: #1e1e1e;
+    --medium-dark-bg: #2d2d2d;
+    --light-text: #e0e0e0;
+    --gray-text: #a0a0a0;
+    --border-color: #4a4a4a;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* --- Header --- */
+.header {
+    background: var(--primary-green);
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(3, 191, 0, 0.3);
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.logo-icon {
+    background-color: #ff4757;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+}
+
+.search-container {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 40px;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    background: #ffffff;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 20px 12px 45px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+}
+
+.search-btn {
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-create,
+.btn-tickets {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- BỐ CỤC TRANG CHI TIẾT --- */
+.event-detail-page {
+    display: flex;
+    gap: 30px;
+    padding: 40px 0;
+}
+
+.event-info-main {
+    flex: 2;
+    min-width: 0;
+}
+
+.event-booking-sidebar {
+    flex: 1;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--gray-text);
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: color 0.2s;
+}
+
+.btn-back:hover {
+    color: var(--light-text);
+}
+
+.event-banner-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    background-color: var(--medium-dark-bg);
+}
+
+.event-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.organizer-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background-color: var(--medium-dark-bg);
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.organizer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--primary-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.organizer-name span {
+    display: block;
+}
+.organizer-name .by {
+    font-size: 12px;
+    color: var(--gray-text);
+}
+
+.event-description h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.event-description p {
+    color: var(--gray-text);
+    margin-bottom: 15px;
+}
+
+.booking-card {
+    background-color: var(--medium-dark-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.booking-card-header {
+    padding: 20px;
+}
+
+.ticket-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-green);
+}
+
+.ticket-price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gray-text);
+}
+
+.btn-buy-tickets {
+    width: 100%;
+    background-color: var(--primary-green);
+    color: var(--white);
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-buy-tickets:hover {
+    background-color: var(--primary-green-hover);
+}
+
+.event-meta-list {
+    list-style: none;
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.event-meta-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.event-meta-list li:last-child {
+    margin-bottom: 0;
+}
+
+.event-meta-list i {
+    font-size: 16px;
+    color: var(--gray-text);
+    margin-top: 4px;
+    width: 20px;
+    text-align: center;
+}
+
+.meta-content span {
+    display: block;
+}
+
+.meta-content .label {
+    font-weight: 500;
+    color: var(--light-text);
+}
+
+.meta-content .value {
+    color: var(--gray-text);
+    font-size: 13px;
+}
+
+/* --- Footer --- */
+.footer {
+    background: #000000;
+    padding: 40px 0 20px;
+    margin-top: 60px;
+    border-top: 1px solid #333;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-section h4 {
+    color: var(--primary-green);
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #cccccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: var(--primary-green);
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    color: #cccccc;
+    font-size: 20px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #888;
+}

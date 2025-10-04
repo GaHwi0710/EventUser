@@ -1,41 +1,14 @@
 # public/.htaccess
+Options -Indexes
 RewriteEngine On
 
-# Không rewrite cho các file và thư mục thực tế
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+# Cho phép serve thẳng file tĩnh (ảnh, css, js, …)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
 
-# Chuyển hướng tất cả request đến index.php
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-
-# Bảo mật các file quan trọng
-<FilesMatch "^\.">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
-
-# Thiết lập charset
-AddDefaultCharset UTF-8
-
-# Bật nén gzip
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/plain
-    AddOutputFilterByType DEFLATE text/html
-    AddOutputFilterByType DEFLATE text/xml
-    AddOutputFilterByType DEFLATE text/css
-    AddOutputFilterByType DEFLATE application/xml
-    AddOutputFilterByType DEFLATE application/xhtml+xml
-    AddOutputFilterByType DEFLATE application/rss+xml
-    AddOutputFilterByType DEFLATE application/javascript
-    AddOutputFilterByType DEFLATE application/x-javascript
-</IfModule>
-
-# Cache static files
-<IfModule mod_expires.c>
-    ExpiresActive On
-    ExpiresByType text/css "access plus 1 year"
-    ExpiresByType application/javascript "access plus 1 year"
-    ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/jpg "access plus 1 year"
-    ExpiresByType image/jpeg "access plus 1 year"
-</IfModule>
+# Còn lại đẩy về index.php (giữ query string)
+RewriteRule ^ index.php [QSA,L]
+RewriteEngine On
+RewriteRule ^$ public/index.php [L]
+RewriteRule (.*) public/$1 [L]

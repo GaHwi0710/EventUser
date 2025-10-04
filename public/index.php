@@ -1,150 +1,117 @@
 <?php
+// public/index.php — Front Controller cho EvenUser
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+
+$ROOT = dirname(__DIR__);
+$APP  = $ROOT . '/app';
+
+// --- Core cần thiết
+require_once $APP . '/core/Database.php';
+require_once $APP . '/core/Controller.php';
+require_once $APP . '/core/Auth.php';
+
+// --- Autoload models / controllers / core (phòng còn file chưa require)
+spl_autoload_register(function ($class) use ($ROOT) {
+    $paths = [
+        "$ROOT/app/models/$class.php",
+        "$ROOT/app/controllers/$class.php",
+        "$ROOT/app/core/$class.php",
+    ];
+    foreach ($paths as $p) if (is_file($p)) { require_once $p; return; }
+});
+
 /**
- * Front Controller - Điểm vào của ứng dụng
- * File này xử lý tất cả các request đến hệ thống
+ * render view thuần (home/list/detail nếu bạn muốn đi qua view trực tiếp)
+ * -> sẽ bọc header/footer từ layouts
  */
+function render_view(string $relative_view_path, array $vars = []): void {
+    $base = dirname(__DIR__) . '/app/views';
+    $header = "$base/layouts/header.php";
+    $footer = "$base/layouts/footer.php";
+    $view   = "$base/" . ltrim($relative_view_path, '/');
 
-// Bắt đầu session
-session_start();
-
-// Hiển thị lỗi (chỉ cho môi trường development)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Định nghĩa hằng số cho đường dẫn
-define('ROOT_PATH', dirname(dirname(__FILE__)));
-define('APP_PATH', ROOT_PATH . '/app');
-define('PUBLIC_PATH', ROOT_PATH . '/public');
-define('CONFIG_PATH', ROOT_PATH . '/config');
-define('DATABASE_PATH', ROOT_PATH . '/database');
-
-// Tự động nạp các lớp (Autoloading)
-spl_autoload_register(function ($class) {
-    // Chuyển đổi namespace thành đường dẫn file
-    $file = APP_PATH . '/' . str_replace('\\', '/', $class) . '.php';
-    
-    // Kiểm tra file tồn tại
-    if (file_exists($file)) {
-        require_once $file;
+    if (!is_file($view)) {
+        http_response_code(404);
+        echo "View not found: " . htmlspecialchars($relative_view_path);
+        return;
     }
-});
+    extract($vars, EXTR_SKIP);
+    include $header;
+    include $view;
+    include $footer;
+}
 
-// Nạp các file cần thiết
-require_once CONFIG_PATH . '/database.php';
-require_once APP_PATH . '/core/Database.php';
-require_once APP_PATH . '/core/Router.php';
-require_once APP_PATH . '/core/Model.php';
-require_once APP_PATH . '/core/Controller.php';
+/**
+ * ROUTER đơn giản qua ?r=controller/action
+ * ví dụ: /?r=event/detail&id=5
+ */
+$r = $_GET['r'] ?? 'home/index';
+$r = trim($r, '/');
+[$controller, $action] = array_pad(explode('/', $r, 2), 2, 'index');
 
-// Khởi tạo router
-$router = new Router();
+try {
+    switch ("$controller/$action") {
 
-// Định nghĩa các route
+        /* -------------------- HOME -------------------- */
+        case 'home/index':
+            // nếu bạn có home.php trong app/views/home/home.php
+            render_view('home/home.php');
+            break;
 
-// Route cho trang chủ
-$router->add('GET', '/', function() {
-    $controller = new \controllers\EventController();
-    return $controller->index();
-});
+        /* -------------------- EVENT ------------------- */
+        case 'event/list':
+            // Nếu list.php tự query DB trong view, dùng render_view;
+            // nếu muốn đi qua controller, dùng (new EventController())->index();
+            (new EventController())->index();
+            break;
 
-// Authentication routes
-$router->add('GET', '/login', function() {
-    $controller = new \controllers\AuthController();
-    return $controller->login();
-});
+        case 'event/detail':
+            (new EventController())->detail();
+            break;
 
-$router->add('POST', '/login', function() {
-    $controller = new \controllers\AuthController();
-    return $controller->authenticate();
-});
+        case 'event/add':
+            (new EventController())->add();
+            break;
 
-$router->add('GET', '/register', function() {
-    $controller = new \controllers\AuthController();
-    return $controller->register();
-});
+        case 'event/edit':
+            (new EventController())->edit();
+            break;
 
-$router->add('POST', '/register', function() {
-    $controller = new \controllers\AuthController();
-    return $controller->store();
-});
+        case 'event/delete':
+            (new EventController())->delete();
+            break;
 
-$router->add('GET', '/logout', function() {
-    $controller = new \controllers\AuthController();
-    return $controller->logout();
-});
+        /* --------------------- AUTH ------------------- */
+        case 'auth/login':
+            (new AuthController())->login();
+            break;
 
-// Event routes
-$router->add('GET', '/events', function() {
-    $controller = new \controllers\EventController();
-    return $controller->index();
-});
+        case 'auth/register':
+            (new AuthController())->register();
+            break;
 
-$router->add('GET', '/events/{id}', function($id) {
-    $controller = new \controllers\EventController();
-    return $controller->show($id);
-});
+        case 'auth/logout':
+            (new AuthController())->logout();
+            break;
 
-$router->add('GET', '/events/create', function() {
-    $controller = new \controllers\EventController();
-    return $controller->create();
-});
+        /* --------------------- USER ------------------- */
+        case 'user/profile':
+            (new UserController())->profile();
+            break;
 
-$router->add('POST', '/events', function() {
-    $controller = new \controllers\EventController();
-    return $controller->store();
-});
+        case 'user/my-events':
+            (new UserController())->myEvents();
+            break;
 
-$router->add('GET', '/events/{id}/edit', function($id) {
-    $controller = new \controllers\EventController();
-    return $controller->edit($id);
-});
+        /* -------------------- 404 --------------------- */
+        default:
+            http_response_code(404);
+            echo "404 Not Found";
+    }
 
-$router->add('POST', '/events/{id}', function($id) {
-    $controller = new \controllers\EventController();
-    return $controller->update($id);
-});
-
-$router->add('POST', '/events/{id}/delete', function($id) {
-    $controller = new \controllers\EventController();
-    return $controller->destroy($id);
-});
-
-$router->add('POST', '/events/{id}/register', function($id) {
-    $controller = new \controllers\EventController();
-    return $controller->register($id);
-});
-
-$router->add('POST', '/events/{id}/unregister', function($id) {
-    $controller = new \controllers\EventController();
-    return $controller->unregister($id);
-});
-
-// Admin routes
-$router->add('GET', '/admin', function() {
-    $controller = new \controllers\AdminController();
-    return $controller->dashboard();
-});
-
-$router->add('GET', '/admin/events', function() {
-    $controller = new \controllers\AdminController();
-    return $controller->events();
-});
-
-$router->add('GET', '/admin/users', function() {
-    $controller = new \controllers\AdminController();
-    return $controller->users();
-});
-
-// User routes
-$router->add('GET', '/profile', function() {
-    $controller = new \controllers\UserController();
-    return $controller->profile();
-});
-
-$router->add('POST', '/profile', function() {
-    $controller = new \controllers\UserController();
-    return $controller->update();
-});
-
-// Xử lý request
-$router->dispatch();
+} catch (Throwable $e) {
+    // Tránh lộ thông tin nhạy cảm trên production
+    http_response_code(500);
+    echo "<h3>Server Error</h3>";
+    echo "<pre>" . htmlspecialchars($e->getMessage()) . "</pre>";
+}
