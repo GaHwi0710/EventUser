@@ -114,7 +114,7 @@ function money_vn($n): string { $n = (float)$n; return number_format($n,0,'.',',
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Hồ sơ cá nhân - EvenUser</title>
+  <title>Hồ sơ cá nhân - EventUser</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/assets/css/profile.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -123,7 +123,7 @@ function money_vn($n): string { $n = (float)$n; return number_format($n,0,'.',',
 
 <header class="header">
   <div class="container-header">
-    <a href="/public/index.php" class="logo"><span class="logo-icon">EU</span> EvenUser</a>
+    <a href="/public/index.php" class="logo"><span class="logo-icon">EU</span> EventUser</a>
     <form class="search-container" action="/app/views/event/list.php" method="get">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
@@ -239,7 +239,7 @@ function money_vn($n): string { $n = (float)$n; return number_format($n,0,'.',',
   <div class="container-footer">
     <div class="footer-content">
       <div class="footer-section">
-        <h4>Về EvenUser</h4>
+        <h4>Về EventUser</h4>
         <p>Nền tảng quản lý & khám phá sự kiện hiện đại dành cho sinh viên.</p>
       </div>
       <div class="footer-section">
@@ -259,7 +259,7 @@ function money_vn($n): string { $n = (float)$n; return number_format($n,0,'.',',
         </div>
       </div>
     </div>
-    <div class="footer-bottom">© <?php echo date('Y'); ?> EvenUser. All rights reserved.</div>
+    <div class="footer-bottom">© <?php echo date('Y'); ?> EventUser. All rights reserved.</div>
   </div>
 </footer>
 

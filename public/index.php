@@ -1,5 +1,5 @@
 <?php
-// public/index.php — Front Controller cho EvenUser
+// public/index.php — Front Controller cho EventUser
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 $ROOT = dirname(__DIR__);

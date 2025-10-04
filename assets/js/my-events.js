@@ -1,4 +1,4 @@
-// ==== EvenUser | MY EVENTS PAGE SCRIPTS ====
+// ==== EventUser | MY EVENTS PAGE SCRIPTS ====
 (function () {
   "use strict";
 

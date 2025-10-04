@@ -1,4 +1,4 @@
-// ==== EvenUser | EDIT PAGE SCRIPTS ====
+// ==== EventUser | EDIT PAGE SCRIPTS ====
 document.addEventListener('DOMContentLoaded', function () {
   /* Province/Ward */
   const locationData = {

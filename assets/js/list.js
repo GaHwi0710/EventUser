@@ -1,9 +1,9 @@
-// ==== EvenUser | LIST PAGE SCRIPTS ====
+// ==== EventUser | LIST PAGE SCRIPTS ====
 (function () {
   "use strict";
 
   // keep view mode (grid/list) in localStorage
-  const KEY_VIEW = "evenuser_list_view"; // "grid" | "list"
+  const KEY_VIEW = "eventuser_list_view"; // "grid" | "list"
 
   function $(sel, root = document) { return root.querySelector(sel); }
   function $all(sel, root = document) { return Array.from(root.querySelectorAll(sel)); }

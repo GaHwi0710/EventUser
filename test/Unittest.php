@@ -1,7 +1,7 @@
 <?php
 /**
  * tests/UnitTest.php
- * Smoke test (không cần PHPUnit) cho EvenUser
+ * Smoke test (không cần PHPUnit) cho EventUser
  * Chạy:  http://localhost/event-user/tests/UnitTest.php
  * Hoặc CLI: php tests/UnitTest.php
  */
@@ -164,7 +164,7 @@ $pass = array_sum(array_map(fn($r)=>$r['ok']?1:0, $results));
 $total= count($results);
 
 if ($isCli) {
-  echo "EvenUser UnitTest: $pass / $total passed".PHP_EOL;
+  echo "EventUser UnitTest: $pass / $total passed".PHP_EOL;
   foreach ($results as $i=>$r) {
     echo sprintf("[%s] %s", $r['ok']?'OK ':'NG ', $r['msg']).PHP_EOL;
   }
@@ -175,7 +175,7 @@ if ($isCli) {
 <html lang="vi">
 <head>
   <meta charset="utf-8">
-  <title>EvenUser – Unit Test</title>
+  <title>EventUser – Unit Test</title>
   <style>
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#0b0f14;color:#e6f1ff;margin:0;padding:24px}
     h1{font-size:22px;margin:0 0 16px}
@@ -189,7 +189,7 @@ if ($isCli) {
   </style>
 </head>
 <body>
-  <h1>EvenUser – Unit Test</h1>
+  <h1>EventUser – Unit Test</h1>
   <div class="sum">Kết quả: <strong><?= $pass ?></strong> / <strong><?= $total ?></strong> testcase passed</div>
   <table>
     <thead><tr><th>#</th><th>Trạng thái</th><th>Mô tả</th></tr></thead>

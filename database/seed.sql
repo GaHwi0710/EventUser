@@ -1,4 +1,4 @@
-USE evenuser;
+USE eventuser;
 
 -- USERS
 INSERT INTO users (email, phone, password_hash, name, role, created_at) VALUES

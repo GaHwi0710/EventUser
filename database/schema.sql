@@ -1,9 +1,9 @@
 -- database/schema.sql
 -- Tạo database (nếu chưa có)
-CREATE DATABASE IF NOT EXISTS evenuser
+CREATE DATABASE IF NOT EXISTS eventuser
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
-USE evenuser;
+USE eventuser;
 
 -- USERS
 DROP TABLE IF EXISTS users;
