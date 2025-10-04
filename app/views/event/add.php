@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
 <body class="page-information-event">
   <div class="organizer-wrapper">
     <aside class="sidebar">
-      <div class="sidebar-header"><h1>EvenUser</h1></div>
+      <div class="sidebar-header"><h1>EventUser</h1></div>
       <nav class="sidebar-nav">
         <a class="nav-item active" href="#">Tạo sự kiện</a>
         <a class="nav-item" href="#">Danh sách</a>
@@ -342,7 +342,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
             <div class="form-row">
               <div class="form-group">
                 <label>Đường dẫn tuỳ chỉnh</label>
-                <input type="text" id="custom-path" maxlength="60" placeholder="vd: evenuser-2025">
+                <input type="text" id="custom-path" maxlength="60" placeholder="vd: eventuser-2025">
                 <div class="char-counter" id="path-counter"></div>
               </div>
               <div class="form-group">

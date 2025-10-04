@@ -49,7 +49,7 @@ function fmt_dt(?string $dt): string {
 
 <header class="header">
   <div class="container">
-    <a href="/public/index.php" class="logo"><span class="logo-icon">EU</span> EvenUser</a>s
+    <a href="/public/index.php" class="logo"><span class="logo-icon">EU</span> EventUser</a>s
     <form class="search-container" method="get" action="/app/views/event/list.php">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
@@ -129,7 +129,7 @@ function fmt_dt(?string $dt): string {
   <div class="container">
     <div class="footer-content">
       <div class="footer-section">
-        <h4>Về EvenUser</h4>
+        <h4>Về EventUser</h4>
         <p>Nền tảng quản lý & khám phá sự kiện hiện đại dành cho sinh viên.</p>
       </div>
       <div class="footer-section">
@@ -149,7 +149,7 @@ function fmt_dt(?string $dt): string {
         </div>
       </div>
     </div>
-    <div class="footer-bottom">© <?php echo date('Y'); ?> EvenUser. All rights reserved.</div>
+    <div class="footer-bottom">© <?php echo date('Y'); ?> EventUser. All rights reserved.</div>
   </div>
 </footer>
 

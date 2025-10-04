@@ -87,7 +87,7 @@ $page = min(max(1, $page), max(1, $totalPages));
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Sự kiện - EvenUser</title>
+  <title>Sự kiện - EventUser</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/assets/css/list.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -96,7 +96,7 @@ $page = min(max(1, $page), max(1, $totalPages));
 
 <header class="header">
   <div class="container">
-    <a href="/public/index.php" class="logo"><span class="logo-icon">EU</span> EvenUser</a>
+    <a href="/public/index.php" class="logo"><span class="logo-icon">EU</span> EventUser</a>
     <form id="search-form" class="search-container" method="GET" action="">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
@@ -242,7 +242,7 @@ $page = min(max(1, $page), max(1, $totalPages));
   <div class="container">
     <div class="footer-content">
       <div class="footer-section">
-        <h4>Về EvenUser</h4>
+        <h4>Về EventUser</h4>
         <p>Nền tảng quản lý & khám phá sự kiện hiện đại dành cho sinh viên.</p>
       </div>
       <div class="footer-section">
@@ -262,7 +262,7 @@ $page = min(max(1, $page), max(1, $totalPages));
         </div>
       </div>
     </div>
-    <div class="footer-bottom">© <?php echo date('Y'); ?> EvenUser. All rights reserved.</div>
+    <div class="footer-bottom">© <?php echo date('Y'); ?> EventUser. All rights reserved.</div>
   </div>
 </footer>
 

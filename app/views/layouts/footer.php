@@ -6,7 +6,7 @@ $jsPath = "../assets/js/{$page}.js";
   <div class="container">
     <div class="footer-content">
       <div class="footer-section">
-        <h4>Về EvenUser</h4>
+        <h4>Về EventUser</h4>
         <p>Nền tảng quản lý & khám phá sự kiện hiện đại dành cho sinh viên.</p>
       </div>
       <div class="footer-section">
@@ -27,7 +27,7 @@ $jsPath = "../assets/js/{$page}.js";
       </div>
     </div>
     <div class="footer-bottom">
-      © <?php echo date('Y'); ?> EvenUser. All rights reserved.
+      © <?php echo date('Y'); ?> EventUser. All rights reserved.
     </div>
   </div>
 </footer>
