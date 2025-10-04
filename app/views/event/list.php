@@ -1,14 +1,6 @@
 <?php
-/***************************************************
- * EvenUser - EVENT LIST (danh sách sự kiện)
- * - Tìm kiếm theo từ khóa (?q=)
- * - Lọc theo khoảng thời gian (?from=YYYY-mm-dd&to=YYYY-mm-dd)
- * - Phân trang (?page=1,2,..) – mặc định 9 sự kiện / trang
- * - Hiển thị giá "Từ ..." dựa trên bảng event_tickets (nếu có)
- ***************************************************/
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
-require_once __DIR__ . '/../../core/Database.php';
 $dbi = Database::getInstance();
 $pdo = method_exists($dbi,'getConnection') ? $dbi->getConnection() : $dbi;
 

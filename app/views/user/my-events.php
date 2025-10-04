@@ -1,11 +1,4 @@
 <?php
-/***************************************************
- * EvenUser - MY EVENTS (Sự kiện của tôi)
- * - Yêu cầu đăng nhập
- * - Liệt kê sự kiện do chính user tạo (events.created_by = user_id)
- * - Tìm kiếm theo tiêu đề, lọc trạng thái, phân trang
- * - Xoá sự kiện (tuỳ chọn) với CSRF (nếu có quyền & tồn tại)
- ***************************************************/
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 if (empty($_SESSION['user_id'])) {
@@ -18,7 +11,6 @@ $uid = (int)$_SESSION['user_id'];
 function csrf_token(): string { if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(16)); return $_SESSION['csrf']; }
 function csrf_verify(?string $t): bool { return isset($_SESSION['csrf']) && is_string($t) && hash_equals($_SESSION['csrf'], $t); }
 
-require_once __DIR__ . '/../../core/Database.php';
 $dbi = Database::getInstance();
 $pdo = method_exists($dbi,'getConnection') ? $dbi->getConnection() : $dbi;
 

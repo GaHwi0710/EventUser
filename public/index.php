@@ -10,7 +10,6 @@ require_once $APP . '/core/Database.php';
 require_once $APP . '/core/Controller.php';
 require_once $APP . '/core/Auth.php';
 
-// --- Autoload models / controllers / core (phòng còn file chưa require)
 spl_autoload_register(function ($class) use ($ROOT) {
     $paths = [
         "$ROOT/app/models/$class.php",
@@ -20,10 +19,6 @@ spl_autoload_register(function ($class) use ($ROOT) {
     foreach ($paths as $p) if (is_file($p)) { require_once $p; return; }
 });
 
-/**
- * render view thuần (home/list/detail nếu bạn muốn đi qua view trực tiếp)
- * -> sẽ bọc header/footer từ layouts
- */
 function render_view(string $relative_view_path, array $vars = []): void {
     $base = dirname(__DIR__) . '/app/views';
     $header = "$base/layouts/header.php";
@@ -54,14 +49,11 @@ try {
 
         /* -------------------- HOME -------------------- */
         case 'home/index':
-            // nếu bạn có home.php trong app/views/home/home.php
             render_view('home/home.php');
             break;
 
         /* -------------------- EVENT ------------------- */
         case 'event/list':
-            // Nếu list.php tự query DB trong view, dùng render_view;
-            // nếu muốn đi qua controller, dùng (new EventController())->index();
             (new EventController())->index();
             break;
 

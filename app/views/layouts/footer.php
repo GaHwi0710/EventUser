@@ -1,9 +1,6 @@
 <?php
-/***************************************************
- * EvenUser - LAYOUT FOOTER
- * - Partial include: app/views/layouts/footer.php
- * - Footer dark + 3 cột như các trang trước
- ***************************************************/
+// JS tương ứng với trang hiện tại
+$jsPath = "../assets/js/{$page}.js";
 ?>
 <footer class="footer">
   <div class="container">
@@ -15,9 +12,9 @@
       <div class="footer-section">
         <h4>Liên kết nhanh</h4>
         <ul>
-          <li><a href="/public/index.php">Trang chủ</a></li>
-          <li><a href="/app/views/event/list.php">Danh sách sự kiện</a></li>
-          <li><a href="/app/views/event/add.php">Tạo sự kiện</a></li>
+          <li><a href="<?php echo $baseUrl; ?>/index.php">Trang chủ</a></li>
+          <li><a href="<?php echo $baseUrl; ?>/../app/views/event/list.php">Danh sách sự kiện</a></li>
+          <li><a href="<?php echo $baseUrl; ?>/../app/views/event/add.php">Tạo sự kiện</a></li>
         </ul>
       </div>
       <div class="footer-section">
@@ -29,6 +26,14 @@
         </div>
       </div>
     </div>
-    <div class="footer-bottom">© <?php echo date('Y'); ?> EvenUser. All rights reserved.</div>
+    <div class="footer-bottom">
+      © <?php echo date('Y'); ?> EvenUser. All rights reserved.
+    </div>
   </div>
 </footer>
+
+<?php if (file_exists($jsPath)): ?>
+  <script src="<?php echo $jsPath; ?>"></script>
+<?php endif; ?>
+</body>
+</html>

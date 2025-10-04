@@ -1,14 +1,10 @@
-# public/.htaccess
 Options -Indexes
 RewriteEngine On
 
-# Cho phép serve thẳng file tĩnh (ảnh, css, js, …)
+# Cho phép truy cập file tĩnh
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Còn lại đẩy về index.php (giữ query string)
+# Các request khác đẩy về index.php
 RewriteRule ^ index.php [QSA,L]
-RewriteEngine On
-RewriteRule ^$ public/index.php [L]
-RewriteRule (.*) public/$1 [L]

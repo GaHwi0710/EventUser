@@ -1,10 +1,4 @@
 <?php
-/*********************************************************
- * EvenUser - EDIT EVENT (one-file)
- * - Load dữ liệu theo ?id=
- * - Update DB (title/description/location/image_url…)
- * - Upload banner + CSRF
- *********************************************************/
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 /* CSRF */
@@ -17,7 +11,6 @@ function csrf_verify(?string $t): bool {
 }
 
 /* DB */
-require_once __DIR__ . '/../../core/Database.php';
 $dbi = Database::getInstance();
 $pdo = method_exists($dbi,'getConnection') ? $dbi->getConnection() : $dbi;
 

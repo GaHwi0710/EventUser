@@ -1,0 +1,7 @@
+# Cho phép Apache phục vụ thư mục public làm gốc
+Options +FollowSymLinks
+RewriteEngine On
+
+# Nếu URL KHÔNG bắt đầu bằng /public thì rewrite vào public/
+RewriteCond %{REQUEST_URI} !^/eventuser/public/
+RewriteRule ^(.*)$ /eventuser/public/$1 [L]

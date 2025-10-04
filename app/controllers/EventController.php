@@ -3,8 +3,8 @@
 require_once __DIR__ . '/../core/Controller.php';
 require_once __DIR__ . '/../core/Auth.php';
 require_once __DIR__ . '/../models/Event.php';
-require_once __DIR__ . '/../models/Ticket.php';        // nếu chưa có model này, có thể bỏ dòng này
-require_once __DIR__ . '/../models/Registration.php'; // dùng khi mua vé (nếu có luồng)
+require_once __DIR__ . '/../models/Ticket.php';        
+require_once __DIR__ . '/../models/Registration.php'; 
 
 class EventController extends Controller
 {

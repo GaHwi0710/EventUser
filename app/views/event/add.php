@@ -1,10 +1,4 @@
 <?php
-/******************************
- * EvenUser - ADD EVENT (one-file)
- * Gộp: Thông tin • Loại vé • Thanh toán • Cài đặt
- * Thuần PHP + PDO, có CSRF, upload ảnh, transaction
- ******************************/
-
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 /* CSRF */
@@ -17,7 +11,6 @@ function csrf_verify(?string $t): bool {
 }
 
 /* Kết nối Database: theo cấu trúc đã chốt */
-require_once __DIR__ . '/../../core/Database.php';
 $dbi = Database::getInstance();
 $pdo = method_exists($dbi,'getConnection') ? $dbi->getConnection() : $dbi;
 

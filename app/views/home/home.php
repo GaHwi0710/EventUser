@@ -1,13 +1,6 @@
 <?php
-/***************************************************
- * EvenUser - HOME (Trang chủ)
- * - Giao diện đồng bộ với detail/list (màu xanh lá, dark)
- * - Tìm kiếm chuyển hướng sang list.php
- * - Hiển thị các sự kiện mới (banner, tiêu đề, thời gian, nút xem chi tiết)
- ***************************************************/
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
-require_once __DIR__ . '/../core/Database.php';
 $dbi = Database::getInstance();
 $pdo = method_exists($dbi,'getConnection') ? $dbi->getConnection() : $dbi;
 

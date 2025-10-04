@@ -1,10 +1,4 @@
 <?php
-/***************************************************
- * EvenUser - REGISTER
- * - Thuần PHP + PDO (Database singleton)
- * - Đăng ký bằng Email hoặc SĐT + Mật khẩu
- * - Kiểm tra trùng, băm mật khẩu, CSRF
- ***************************************************/
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 // CSRF helpers

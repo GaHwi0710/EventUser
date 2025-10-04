@@ -6,9 +6,7 @@ require_once __DIR__ . '/../models/User.php';
 
 class AuthController extends Controller
 {
-    /** Nếu base Controller của bạn đã có render(), dùng thẳng. */
     protected function renderView(string $view, array $vars = []): void {
-        // nếu Controller đã có ->render(), bạn có thể gọi: $this->render($view, $vars); return;
         $base = dirname(__DIR__) . '/views';
         extract($vars, EXTR_SKIP);
         include $base . '/layouts/header.php';

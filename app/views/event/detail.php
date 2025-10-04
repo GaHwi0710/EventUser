@@ -1,10 +1,4 @@
 <?php
-/***************************************************
- * EvenUser - EVENT DETAIL
- * - Hiển thị chi tiết sự kiện theo ?id=...
- * - Lấy tickets từ bảng event_tickets (nếu có)
- * - Nút "Mua vé" (demo POST với CSRF)
- ***************************************************/
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 /* CSRF */

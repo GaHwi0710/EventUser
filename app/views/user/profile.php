@@ -1,10 +1,4 @@
 <?php
-/***************************************************
- * EvenUser - PROFILE (Trang cá nhân)
- * - Yêu cầu đăng nhập (session user_id)
- * - Tab 1: Thông tin tài khoản (xem & cập nhật cơ bản)
- * - Tab 2: Vé của tôi (đăng ký gần đây)
- ***************************************************/
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 // Redirect nếu chưa đăng nhập
@@ -23,7 +17,6 @@ function csrf_verify(?string $t): bool {
 }
 
 // DB
-require_once __DIR__ . '/../../core/Database.php';
 $dbi = Database::getInstance();
 $pdo = method_exists($dbi,'getConnection') ? $dbi->getConnection() : $dbi;
 

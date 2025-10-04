@@ -1,10 +1,4 @@
 <?php
-/***************************************************
- * EvenUser - LOGIN
- * - Thuần PHP + PDO (Database singleton)
- * - Email hoặc SĐT + Mật khẩu (hash verify)
- * - CSRF + Thông báo lỗi thân thiện
- ***************************************************/
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 // CSRF helpers
