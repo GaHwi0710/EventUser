@@ -8,13 +8,13 @@ if (!isLoggedIn()) {
 
 require_once '../classes/Database.php';
 require_once '../classes/Registration.php';
+require_once '../classes/Event.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 $registration = new Registration($db);
-$registration->user_id = $_SESSION['user_id'];
-
+$registration->user_email = $_SESSION['user_email']; // cần lưu khi login
 $registrations = $registration->readByUser();
 
 $pageTitle = "Sự Kiện Của Tôi";
@@ -28,48 +28,60 @@ require_once '../includes/header.php';
         <?php if (count($registrations) > 0): ?>
             <?php foreach ($registrations as $reg): ?>
                 <?php
-                $imagePath = !empty($reg['image'])
-                    ? SITE_URL . '/uploads/events/' . htmlspecialchars($reg['image'])
+                // lấy ảnh sự kiện nếu có
+                $imagePath = !empty($reg['event_image'])
+                    ? SITE_URL . '/uploads/events/' . htmlspecialchars($reg['event_image'])
                     : SITE_URL . '/assets/images/default-event.jpg';
                 ?>
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0">
-                        <img src="<?php echo $imagePath; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($reg['title']); ?>" height="200" style="object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title fw-semibold"><?php echo htmlspecialchars($reg['title']); ?></h5>
-                            <p class="card-text mb-1">
-                                <i class="bi bi-calendar-event me-1"></i> <?php echo formatDate($reg['date']); ?> | <?php echo $reg['time']; ?>
-                            </p>
-                            <p class="card-text mb-3">
-                                <i class="bi bi-geo-alt me-1"></i> <?php echo htmlspecialchars($reg['location']); ?>
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="badge bg-<?php echo $reg['status'] == 'approved' ? 'success' : ($reg['status'] == 'rejected' ? 'danger' : 'warning'); ?>">
+                    <a href="<?php echo SITE_URL; ?>/events/detail.php?id=<?php echo urlencode($reg['event_id']); ?>" 
+                       class="text-decoration-none text-dark">
+                        <div class="card shadow-sm border-0 h-100">
+                            <img src="<?php echo $imagePath; ?>" 
+                                 class="card-img-top" 
+                                 alt="<?php echo htmlspecialchars($reg['event_title']); ?>" 
+                                 height="200" 
+                                 style="object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;">
+                            <div class="card-body">
+                                <h5 class="fw-semibold mb-2"><?php echo htmlspecialchars($reg['event_title']); ?></h5>
+                                <p class="text-muted mb-2">
+                                    <i class="bi bi-calendar-event"></i> 
+                                    <?php echo formatDate($reg['registration_date']); ?>
+                                </p>
+                                <span class="badge bg-<?php 
+                                    echo $reg['status']=='approved' ? 'success' : 
+                                        ($reg['status']=='rejected' ? 'danger' : 'warning'); ?>">
                                     <?php 
-                                    if ($reg['status'] == 'approved') echo 'Đã duyệt';
-                                    elseif ($reg['status'] == 'rejected') echo 'Đã từ chối';
+                                    if ($reg['status']=='approved') echo 'Đã duyệt';
+                                    elseif ($reg['status']=='rejected') echo 'Đã từ chối';
                                     else echo 'Chờ duyệt';
                                     ?>
                                 </span>
-                                <a href="<?php echo SITE_URL; ?>/events/detail.php?id=<?php echo $reg['event_id']; ?>" class="btn btn-sm btn-primary">Xem Chi Tiết</a>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <div class="col-12">
-                <div class="empty-state text-center py-5">
-                    <div class="empty-state-icon mb-3">
-                        <i class="bi bi-calendar-x display-5 text-secondary"></i>
-                    </div>
-                    <h4 class="empty-state-title mb-2">Bạn chưa đăng ký sự kiện nào</h4>
-                    <p class="empty-state-text mb-3 text-muted">Hãy khám phá và đăng ký tham gia các sự kiện hấp dẫn.</p>
-                    <a href="<?php echo SITE_URL; ?>/events/index.php" class="btn btn-primary">Khám Phá Sự Kiện</a>
-                </div>
-            </div>
+            <p class="text-center text-muted mt-5">Bạn chưa đăng ký sự kiện nào.</p>
         <?php endif; ?>
     </div>
 </div>
+
+<style>
+.dashboard-title {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+.card:hover {
+    transform: translateY(-4px);
+    transition: 0.3s;
+}
+.card img {
+    border-radius: .5rem .5rem 0 0;
+}
+</style>
 
 <?php require_once '../includes/footer.php'; ?>

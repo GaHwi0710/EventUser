@@ -18,8 +18,8 @@ $user = new User($db);
 $user_data = $user->getUserById($_SESSION['user_id']);
 
 $registration = new Registration($db);
-$registration->user_id = $_SESSION['user_id'];
-$user_registrations = $registration->readByUser();
+$registration->user_email = $_SESSION['user_email']; // ✅ dùng email để truy vấn
+$user_registrations = $registration->readByUserDashboard(); // ✅ hàm mới cho dashboard
 
 $event = new Event($db);
 $upcoming_events = $event->readUpcoming();
@@ -31,6 +31,7 @@ require_once '../includes/header.php';
 <section class="dashboard-section">
     <div class="container">
         <div class="row">
+            <!-- SIDEBAR -->
             <div class="col-md-3">
                 <div class="dashboard-sidebar">
                     <div class="user-profile text-center">
@@ -81,6 +82,7 @@ require_once '../includes/header.php';
                 </div>
             </div>
 
+            <!-- MAIN CONTENT -->
             <div class="col-md-9">
                 <div class="dashboard-welcome mb-4">
                     <h2>Chào mừng, <?php echo htmlspecialchars($user_data['full_name']); ?>!</h2>
@@ -129,15 +131,16 @@ require_once '../includes/header.php';
                     </div>
                 </div>
 
+                <!-- Danh sách sự kiện sắp diễn ra -->
                 <div class="dashboard-card mb-4">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Sự kiện sắp diễn ra</h3>
                         <a href="<?php echo SITE_URL; ?>/events/index.php" class="btn btn-sm btn-outline-primary">Xem tất cả</a>
                     </div>
                     <div class="card-body">
                         <?php if (!empty($upcoming_events)): ?>
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table align-middle">
                                     <thead>
                                         <tr>
                                             <th>Sự kiện</th>

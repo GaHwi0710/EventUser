@@ -15,128 +15,116 @@ $db = $database->getConnection();
 $registration = new Registration($db);
 $action = $_GET['action'] ?? '';
 
-// ✅ Xử lý duyệt đăng ký
+// ✅ Duyệt đăng ký
 if ($action === 'approve' && isset($_GET['id'])) {
     $registration->id = $_GET['id'];
     $registration->status = 'approved';
-
-    if ($registration->updateStatus()) {
-        setFlash('✅ Duyệt đăng ký thành công', 'success');
-    } else {
-        setFlash('❌ Duyệt đăng ký thất bại', 'danger');
-    }
+    $registration->updateStatus();
+    setFlash('✅ Duyệt đăng ký thành công!', 'success');
     redirect(SITE_URL . '/admin/registrations.php');
 }
 
-// ✅ Xử lý từ chối đăng ký
+// ✅ Từ chối đăng ký
 if ($action === 'reject' && isset($_GET['id'])) {
     $registration->id = $_GET['id'];
     $registration->status = 'rejected';
-
-    if ($registration->updateStatus()) {
-        setFlash('🚫 Từ chối đăng ký thành công', 'success');
-    } else {
-        setFlash('❌ Từ chối đăng ký thất bại', 'danger');
-    }
+    $registration->updateStatus();
+    setFlash('🚫 Từ chối đăng ký thành công!', 'danger');
     redirect(SITE_URL . '/admin/registrations.php');
 }
 
-// ✅ Lấy tất cả đăng ký
 $registrations = $registration->readAll();
 
-$pageTitle = "Quản Lý Đăng Ký";
+$pageTitle = "Quản lý đăng ký";
 require_once '../includes/header.php';
 ?>
 
 <div class="container mt-4">
-    <h1 class="dashboard-title">Quản Lý Đăng Ký</h1>
+    <h1 class="dashboard-title mb-4 fw-bold">Quản lý đăng ký</h1>
 
-    <?php $flash = getFlash(); if ($flash): ?>
+    <?php if ($flash = getFlash()): ?>
         <div class="alert alert-<?php echo $flash['type']; ?> alert-dismissible fade show" role="alert">
-            <?php echo $flash['message']; ?>
+            <?php echo htmlspecialchars($flash['message']); ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     <?php endif; ?>
 
-    <div class="card">
+    <div class="card shadow-sm border-0">
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Sự kiện</th>
-                            <th>Người dùng</th>
-                            <th>Ngày đăng ký</th>
-                            <th>Trạng thái</th>
-                            <th class="text-center">Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (!empty($registrations)): ?>
-                            <?php foreach ($registrations as $reg): ?>
-                                <tr>
-                                    <td><?php echo $reg['id']; ?></td>
-                                    
-                                    <!-- ✅ Sử dụng event_title thay vì event_id -->
-                                    <td>
-                                        <span class="fw-semibold text-primary">
-                                            <?php echo htmlspecialchars($reg['event_title']); ?>
-                                        </span>
-                                    </td>
-                                    
-                                    <!-- ✅ Sử dụng user_email thay vì user_name -->
-                                    <td><?php echo htmlspecialchars($reg['user_email']); ?></td>
-                                    
-                                    <td><?php echo formatDate($reg['registration_date']); ?></td>
-                                    
-                                    <td>
-                                        <span class="badge bg-<?php 
-                                            echo $reg['status'] === 'approved' ? 'success' : 
-                                                 ($reg['status'] === 'rejected' ? 'danger' : 'warning');
-                                        ?>">
-                                            <?php 
-                                            if ($reg['status'] === 'approved') echo 'Đã duyệt';
-                                            elseif ($reg['status'] === 'rejected') echo 'Đã từ chối';
-                                            else echo 'Chờ duyệt';
-                                            ?>
-                                        </span>
-                                    </td>
-                                    
-                                    <td class="text-center">
-                                        <?php if ($reg['status'] === 'pending'): ?>
-                                            <a href="<?php echo SITE_URL; ?>/admin/registrations.php?action=approve&id=<?php echo $reg['id']; ?>" 
-                                               class="btn btn-sm btn-success me-1" title="Duyệt">
-                                                <i class="bi bi-check"></i>
-                                            </a>
-                                            <a href="<?php echo SITE_URL; ?>/admin/registrations.php?action=reject&id=<?php echo $reg['id']; ?>" 
-                                               class="btn btn-sm btn-danger" title="Từ chối">
-                                                <i class="bi bi-x"></i>
-                                            </a>
-                                        <?php else: ?>
-                                            <span class="text-muted">Đã xử lý</span>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
+            <table class="table table-hover align-middle text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Sự kiện</th>
+                        <th>Người dùng</th>
+                        <th>Ngày đăng ký</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($registrations)): ?>
+                        <?php foreach ($registrations as $r): ?>
                             <tr>
-                                <td colspan="6" class="text-center py-4">
-                                    <div class="empty-state">
-                                        <div class="empty-state-icon mb-2">
-                                            <i class="bi bi-clipboard-x fs-1 text-muted"></i>
-                                        </div>
-                                        <h5 class="empty-state-title">Không có đăng ký nào</h5>
-                                        <p class="text-muted">Hiện tại chưa có người dùng nào đăng ký sự kiện.</p>
-                                    </div>
+                                <td><?php echo $r['id']; ?></td>
+                                <td><?php echo htmlspecialchars($r['event_title']); ?></td>
+                                <td><?php echo htmlspecialchars($r['user_email']); ?></td>
+                                <td><?php echo formatDate($r['registration_date']); ?></td>
+                                <td>
+                                    <span class="badge bg-<?php 
+                                        echo $r['status'] == 'approved' ? 'success' : 
+                                            ($r['status'] == 'rejected' ? 'danger' : 'warning');
+                                    ?>">
+                                        <?php 
+                                        if ($r['status'] == 'approved') echo 'Đã duyệt';
+                                        elseif ($r['status'] == 'rejected') echo 'Đã từ chối';
+                                        else echo 'Chờ duyệt';
+                                        ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <?php if ($r['status'] == 'pending'): ?>
+                                        <a href="?action=approve&id=<?php echo $r['id']; ?>" class="btn btn-success btn-sm" title="Duyệt">
+                                            <i class="bi bi-check"></i>
+                                        </a>
+                                        <a href="?action=reject&id=<?php echo $r['id']; ?>" class="btn btn-danger btn-sm" title="Từ chối">
+                                            <i class="bi bi-x"></i>
+                                        </a>
+                                    <?php else: ?>
+                                        <span class="text-muted">Đã xử lý</span>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="6" class="text-muted py-4">Chưa có đăng ký nào.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+<style>
+    .dashboard-title {
+        font-size: 2rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    .container {
+        padding-top: 10px; /* tạo khoảng đệm nhẹ cho toàn bộ nội dung */
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        transition: 0.3s;
+    }
+    .card img {
+        border-radius: .5rem .5rem 0 0;
+    }
+</style>
 
 <?php require_once '../includes/footer.php'; ?>
