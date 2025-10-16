@@ -2,7 +2,6 @@
 require_once '../includes/config.php';
 require_once '../includes/functions.php';
 
-// Nếu không có ID sự kiện thì quay lại
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     setFlash('Vui lòng chọn sự kiện bạn muốn xem', 'warning');
     redirect(SITE_URL . '/events/index.php');
@@ -10,7 +9,6 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 
 $event_id = $_GET['id'];
 
-// Kết nối DB & các lớp cần thiết
 require_once '../classes/Database.php';
 require_once '../classes/Event.php';
 require_once '../classes/Registration.php';
@@ -30,7 +28,6 @@ if (!$event_data) {
 $registration = new Registration($db);
 $registration->event_title = $event_data['title'];
 
-// Lấy thông tin người dùng đang đăng nhập
 $currentUser = null;
 if (isLoggedIn()) {
     require_once '../classes/User.php';
@@ -38,7 +35,6 @@ if (isLoggedIn()) {
     $currentUser = $userObj->getUserById($_SESSION['user_id']);
 }
 
-// ✅ Xử lý đăng ký sự kiện
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
     $registration->user_email = $currentUser['email'];
     $registration->registration_date = date('Y-m-d');
@@ -59,15 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
     redirect(SITE_URL . '/events/detail.php?id=' . $event_id);
 }
 
-// ✅ Lấy danh sách người tham gia
 $attendees = $registration->readByEvent();
 
-// Thiết lập tiêu đề
 $pageTitle = $event_data['title'];
 require_once '../includes/header.php';
 ?>
 
-<!-- ========== HERO SECTION ========== -->
 <div class="container mt-4">
     <div class="event-detail-header position-relative">
         <?php
@@ -92,7 +85,6 @@ require_once '../includes/header.php';
     </div>
 </div>
 
-<!-- ========== NỘI DUNG CHÍNH ========== -->
 <div class="container mt-5">
     <div class="row g-4">
         <!-- CỘT TRÁI -->
@@ -114,7 +106,6 @@ require_once '../includes/header.php';
                 </div>
             </div>
 
-            <!-- Danh sách người tham gia -->
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <h4 class="mb-3"><i class="bi bi-people text-primary me-2"></i>Danh sách người tham gia</h4>
@@ -151,7 +142,6 @@ require_once '../includes/header.php';
             </div>
         </div>
 
-        <!-- CỘT PHẢI: FORM ĐĂNG KÝ -->
         <div class="col-lg-4">
             <div class="card border-0 shadow-sm sticky-top" style="top: 90px;">
                 <div class="card-header bg-primary text-white text-center py-3">
@@ -218,7 +208,6 @@ require_once '../includes/header.php';
     </div>
 </div>
 
-<!-- ========== MODAL: ĐIỀU KHOẢN ========== -->
 <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">

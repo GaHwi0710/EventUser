@@ -7,7 +7,6 @@ if (isLoggedIn()) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // ✅ Khai báo an toàn để tránh "Undefined array key"
     $full_name = $_POST['full_name'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -67,7 +66,6 @@ require_once '../includes/header.php';
                 <?php endif; ?>
                 
                 <form method="post" action="<?php echo SITE_URL; ?>/auth/register.php">
-                    <!-- Họ và tên -->
                     <div class="form-group">
                         <label for="full_name" class="form-label">Họ và tên</label>
                         <div class="input-group">
@@ -76,7 +74,6 @@ require_once '../includes/header.php';
                         </div>
                     </div>
 
-                    <!-- Email -->
                     <div class="form-group">
                         <label for="email" class="form-label">Email</label>
                         <div class="input-group">
@@ -85,7 +82,6 @@ require_once '../includes/header.php';
                         </div>
                     </div>
 
-                    <!-- Mật khẩu -->
                     <div class="form-group">
                         <label for="password" class="form-label">Mật khẩu</label>
                         <div class="input-group">
@@ -98,7 +94,6 @@ require_once '../includes/header.php';
                         <div class="password-strength-text" id="passwordStrengthText"></div>
                     </div>
 
-                    <!-- Xác nhận mật khẩu -->
                     <div class="form-group">
                         <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
                         <div class="input-group">
@@ -107,7 +102,6 @@ require_once '../includes/header.php';
                         </div>
                     </div>
 
-                    <!-- Điều khoản -->
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="agreeTerms" name="agreeTerms" required>
                         <label class="form-check-label" for="agreeTerms">

@@ -15,7 +15,6 @@ $db = $database->getConnection();
 $registration = new Registration($db);
 $action = $_GET['action'] ?? '';
 
-// ✅ Duyệt đăng ký
 if ($action === 'approve' && isset($_GET['id'])) {
     $registration->id = $_GET['id'];
     $registration->status = 'approved';
@@ -24,7 +23,6 @@ if ($action === 'approve' && isset($_GET['id'])) {
     redirect(SITE_URL . '/admin/registrations.php');
 }
 
-// ✅ Từ chối đăng ký
 if ($action === 'reject' && isset($_GET['id'])) {
     $registration->id = $_GET['id'];
     $registration->status = 'rejected';
@@ -115,7 +113,7 @@ require_once '../includes/header.php';
     }
 
     .container {
-        padding-top: 10px; /* tạo khoảng đệm nhẹ cho toàn bộ nội dung */
+        padding-top: 10px; 
     }
 
     .card:hover {

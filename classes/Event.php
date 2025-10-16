@@ -27,7 +27,6 @@ class Event {
         $this->conn = $db;
     }
 
-    /** 🟢 Tạo sự kiện mới */
     public function create() {
         $query = "INSERT INTO {$this->table_name} 
             (title, slug, description, short_description, date, time, start_date, end_date,
@@ -63,7 +62,6 @@ class Event {
         return $stmt->execute();
     }
 
-    /** 🟡 Lấy tất cả sự kiện */
     public function readAll() {
         $query = "SELECT * FROM {$this->table_name} ORDER BY start_date ASC";
         $stmt = $this->conn->prepare($query);
@@ -71,7 +69,6 @@ class Event {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /** 🟢 Lấy sự kiện sắp diễn ra — FIXED */
     public function readUpcoming() {
         $query = "
             SELECT * FROM {$this->table_name}
@@ -90,7 +87,6 @@ class Event {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /** 🔵 Lấy chi tiết sự kiện */
     public function readOne() {
         $query = "SELECT * FROM {$this->table_name} WHERE id = :id LIMIT 1";
         $stmt = $this->conn->prepare($query);
@@ -99,7 +95,6 @@ class Event {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    /** 🟠 Cập nhật sự kiện */
     public function update() {
         $query = "UPDATE {$this->table_name}
                   SET title = :title, slug = :slug, description = :description, short_description = :short_description,
@@ -137,7 +132,6 @@ class Event {
         return $stmt->execute();
     }
 
-    /** 🔴 Xóa sự kiện */
     public function delete() {
         $query = "DELETE FROM {$this->table_name} WHERE id = :id";
         $stmt = $this->conn->prepare($query);

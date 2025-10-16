@@ -16,7 +16,6 @@ class User {
         $this->conn = $db;
     }
 
-    // 🔎 Kiểm tra email đã tồn tại hay chưa
     public function userExists() {
         $query = "SELECT id FROM {$this->table_name} WHERE email = :email LIMIT 1";
         $stmt = $this->conn->prepare($query);
@@ -25,9 +24,7 @@ class User {
         return $stmt->rowCount() > 0;
     }
 
-    // 🟢 Đăng ký người dùng mới
     public function register() {
-        // Gán tên mặc định nếu người dùng chưa nhập
         $this->full_name = !empty($this->full_name) ? $this->full_name : 'Người dùng mới';
         $this->username = !empty($this->username) ? $this->username : explode('@', $this->email)[0];
 
@@ -48,7 +45,6 @@ class User {
         return $stmt->execute();
     }
 
-    // 🟡 Đăng nhập người dùng
     public function login() {
         $query = "SELECT * FROM {$this->table_name} 
                   WHERE email = :input OR username = :input 
@@ -65,7 +61,6 @@ class User {
         return false;
     }
 
-    // 🔵 Lấy thông tin người dùng theo ID
     public function getUserById($id = null) {
         if ($id === null && isset($_SESSION['user_id'])) {
             $id = $_SESSION['user_id'];
@@ -80,7 +75,6 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // 🟠 Cập nhật hồ sơ người dùng
     public function updateProfile() {
         $query = "UPDATE {$this->table_name}
                   SET full_name = :full_name, phone = :phone, avatar = :avatar
@@ -95,7 +89,6 @@ class User {
         return $stmt->execute();
     }
 
-    // 🔹 Lấy danh sách tất cả người dùng
     public function readAll() {
         $query = "SELECT id, full_name, email, role, phone, created_at 
                   FROM {$this->table_name} 

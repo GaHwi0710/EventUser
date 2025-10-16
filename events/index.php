@@ -21,7 +21,6 @@ require_once '../includes/header.php';
     <div class="container">
         <h1 class="section-title text-center mb-4 fw-bold">Danh Sách Sự Kiện</h1>
 
-        <!-- Bộ lọc tìm kiếm -->
         <div class="search-filter mb-4">
             <div class="row g-3 align-items-center">
                 <div class="col-md-6">
@@ -54,7 +53,6 @@ require_once '../includes/header.php';
             </div>
         </div>
 
-        <!-- Danh sách sự kiện -->
         <div class="row" id="eventsList">
             <?php if (!empty($events)): ?>
                 <?php 
@@ -70,7 +68,6 @@ require_once '../includes/header.php';
                     if ($matchSearch && $matchCategory):
                         $found = true;
 
-                        // 🧩 Xử lý ảnh an toàn tuyệt đối:
                         $imageFile = trim($event_item['image'] ?? '');
                         $localPath = realpath(__DIR__ . '/../uploads/events/' . $imageFile);
                         $hasImage = $imageFile && $localPath && file_exists($localPath);

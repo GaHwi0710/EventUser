@@ -14,7 +14,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 $registration = new Registration($db);
-$registration->user_email = $_SESSION['user_email']; // cần lưu khi login
+$registration->user_email = $_SESSION['user_email']; 
 $registrations = $registration->readByUser();
 
 $pageTitle = "Sự Kiện Của Tôi";
@@ -28,7 +28,6 @@ require_once '../includes/header.php';
         <?php if (count($registrations) > 0): ?>
             <?php foreach ($registrations as $reg): ?>
                 <?php
-                // lấy ảnh sự kiện nếu có
                 $imagePath = !empty($reg['event_image'])
                     ? SITE_URL . '/uploads/events/' . htmlspecialchars($reg['event_image'])
                     : SITE_URL . '/assets/images/default-event.jpg';

@@ -15,7 +15,6 @@ $db = $database->getConnection();
 $user = new User($db);
 $action = $_GET['action'] ?? '';
 
-// ✅ Xóa người dùng
 if ($action === 'delete' && isset($_GET['id'])) {
     $id = (int) $_GET['id'];
 

@@ -4,7 +4,6 @@ require_once '../includes/functions.php';
 require_once '../classes/Database.php';
 require_once '../classes/Event.php';
 
-// 🔒 Chỉ admin mới được chỉnh sửa
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
     redirect(SITE_URL . '/index.php');
 }
@@ -13,11 +12,9 @@ $database = new Database();
 $db = $database->getConnection();
 $event = new Event($db);
 
-// Lấy ID sự kiện
 $event_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if ($event_id <= 0) redirect('events.php');
 
-// Lấy dữ liệu sự kiện
 $event->id = $event_id;
 $eventData = $event->readOne();
 
@@ -26,7 +23,6 @@ if (!$eventData) {
     redirect('events.php');
 }
 
-// 🧩 Xử lý cập nhật
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $event->id = $event_id;
     $event->title = $_POST['title'] ?? '';
@@ -45,12 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $event->status = $_POST['status'] ?? 'draft';
     $event->featured = isset($_POST['featured']) ? 1 : 0;
 
-    // 🧠 Tự động sinh slug nếu trống
     if (empty($event->slug)) {
         $event->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $event->title), '-'));
     }
 
-    // 🖼️ Xử lý ảnh
     if (!empty($_FILES['image']['name'])) {
         $targetDir = "../uploads/events/";
         if (!file_exists($targetDir)) mkdir($targetDir, 0777, true);
@@ -73,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $event->image = $eventData['image'];
     }
 
-    // 🧩 Cập nhật dữ liệu
     if ($event->update()) {
         setFlash("✅ Cập nhật sự kiện thành công!", "success");
         redirect("events.php");

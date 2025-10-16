@@ -15,7 +15,6 @@ class Registration {
         $this->conn = $db;
     }
 
-    /** 🟢 Thêm đăng ký mới */
     public function create() {
         $query = "INSERT INTO {$this->table_name}
                   (event_title, user_email, registration_date, status, ticket_number, notes)
@@ -40,7 +39,6 @@ class Registration {
         return $stmt->execute();
     }
 
-    /** 🟡 Lấy tất cả đăng ký (admin dùng) */
     public function readAll() {
         $query = "SELECT * FROM {$this->table_name} ORDER BY registration_date DESC";
         $stmt = $this->conn->prepare($query);
@@ -48,7 +46,6 @@ class Registration {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /** 🔵 Lấy danh sách người tham gia theo sự kiện */
     public function readByEvent() {
         $query = "SELECT * FROM {$this->table_name}
                   WHERE event_title = :event_title
@@ -59,7 +56,6 @@ class Registration {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /** 🟢 Lấy danh sách sự kiện theo người dùng (JOIN để hiển thị ảnh + id) */
     public function readByUser() {
         $query = "SELECT r.*, 
                          e.id AS event_id, 
@@ -78,7 +74,6 @@ class Registration {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /** 🟣 Kiểm tra người dùng đã đăng ký sự kiện chưa */
     public function checkRegistration() {
         $query = "SELECT id FROM {$this->table_name}
                   WHERE event_title = :event_title AND user_email = :user_email";
@@ -89,7 +84,6 @@ class Registration {
         return $stmt->rowCount() > 0;
     }
 
-    /** 🟠 Cập nhật trạng thái (admin duyệt / từ chối) */
     public function updateStatus() {
         $query = "UPDATE {$this->table_name} 
                   SET status = :status 
@@ -100,7 +94,6 @@ class Registration {
         return $stmt->execute();
     }
 
-    /** 🔴 Xóa đăng ký */
     public function delete() {
         $query = "DELETE FROM {$this->table_name} WHERE id = :id";
         $stmt = $this->conn->prepare($query);
@@ -108,7 +101,6 @@ class Registration {
         return $stmt->execute();
     }
 
-    /** 🧩 Lấy danh sách đăng ký cho dashboard (theo email user) */
     public function readByUserDashboard() {
         $query = "SELECT * FROM {$this->table_name} WHERE user_email = :user_email";
         $stmt = $this->conn->prepare($query);

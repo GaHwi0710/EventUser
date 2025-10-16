@@ -80,7 +80,6 @@ require_once '../includes/header.php';
                                     <td><?php echo $event_item['id']; ?></td>
                                     <td><?php echo htmlspecialchars($event_item['title']); ?></td>
                                     <td><?php echo formatDate($event_item['date']); ?></td>
-                                    <!-- ✅ Sửa lỗi: dùng category_name -->
                                     <td><?php echo htmlspecialchars($event_item['category_name'] ?? 'Không có danh mục'); ?></td>
                                     <td>
                                         <?php
