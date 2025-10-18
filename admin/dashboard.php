@@ -67,7 +67,6 @@ require_once '../includes/header.php';
     </div>
 
     <div class="row">
-        <!-- 🟢 Sự kiện mới nhất -->
         <div class="col-lg-6 mb-4">
             <div class="card">
                 <div class="card-header"><h5 class="card-title mb-0">Sự Kiện Mới Nhất</h5></div>
@@ -99,7 +98,6 @@ require_once '../includes/header.php';
             </div>
         </div>
 
-        <!-- 🟡 Đăng ký mới nhất -->
         <div class="col-lg-6 mb-4">
             <div class="card">
                 <div class="card-header"><h5 class="card-title mb-0">Đăng Ký Mới Nhất</h5></div>
