@@ -74,6 +74,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                                     <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/admin/registrations.php">
                                         <i class="bi bi-list-check me-2"></i>Đăng ký sự kiện</a></li>
                                     <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/admin/report.php"><i class="bi bi-bar-chart"></i> Thống kê & Báo cáo</a></li>
                                 <?php endif; ?>
 
                                 <?php if ($_SESSION['user_role'] === 'user'): ?>
